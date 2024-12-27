@@ -8,7 +8,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 # Load the data from the CSV file
-file_path = "/content/drive/MyDrive/yasaswini_dataset/crop - crop.csv"
+file_path = "/content/drive/MyDrive/dataset/crop - crop.csv"
 data = pd.read_csv(file_path)
 
 # Assuming your CSV file has columns named 'X' and 'y' for features and target respectively
