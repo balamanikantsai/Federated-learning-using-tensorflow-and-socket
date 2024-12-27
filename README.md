@@ -1,1 +1,1 @@
-# Federated-learning-using-tensorflow-and-socket
+# Federated learning implementation
