@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify
 import numpy as np
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # Initialize global weights as a numpy array
 global_weights = None
@@ -38,7 +38,7 @@ def train_round():
         return jsonify({"error": "No global weights available"}), 404
     return jsonify({"status": "Round completed", "weights": global_weights.tolist()})
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     # Initialize global weights with random values to start federated learning
     global_weights = np.random.rand(4)  # Adjust the size to match feature importances
     print("Initial global weights on server:", global_weights)
