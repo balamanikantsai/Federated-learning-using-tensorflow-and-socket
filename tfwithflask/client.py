@@ -1,3 +1,21 @@
+"""
+client.py
+
+This script simulates a client in a federated learning setup using a neural network model.
+The client trains the model on a subset of the MNIST dataset, sends the local model weights to the server,
+and receives the aggregated global model weights from the server.
+
+Functions:
+- get_global_weights: Fetches the current global model weights from the server.
+- send_local_weights: Sends the local model weights to the server.
+- train_local_model: Trains the local model on a subset of the MNIST dataset.
+- evaluate_model: Evaluates the local model on the test dataset.
+
+Usage:
+Run this script to start the client:
+    python client.py
+"""
+
 import requests
 import numpy as np
 import tensorflow as tf
@@ -25,6 +43,9 @@ local_model = tf.keras.Sequential([
 local_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 def get_global_weights():
+    """
+    Fetches the current global model weights from the server and updates the local model.
+    """
     response = requests.get(f"{server_url}/get_weights")
     if response.status_code == 200:
         weights = response.json().get("weights")
@@ -34,16 +55,25 @@ def get_global_weights():
         print("Error fetching global weights:", response.json())
 
 def send_local_weights():
+    """
+    Sends the local model weights to the server.
+    """
     weights = local_model.get_weights()
     response = requests.post(f"{server_url}/upload", json={"weights": [w.tolist() for w in weights]})
     print("Sent local weights to server")
     print("Send weights status:", response.json())
 
 def train_local_model(x_subset, y_subset):
+    """
+    Trains the local model on a subset of the MNIST dataset.
+    """
     local_model.fit(x_subset, y_subset, epochs=1, verbose=0)
     print("Local model trained on subset")
 
 def evaluate_model():
+    """
+    Evaluates the local model on the test dataset.
+    """
     loss, accuracy = local_model.evaluate(x_test, y_test, verbose=0)
     print("Test accuracy:", accuracy)
     return accuracy
