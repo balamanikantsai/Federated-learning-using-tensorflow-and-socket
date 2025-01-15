@@ -23,7 +23,7 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.datasets import mnist
 
 # Settings
-server_url = "http://<server-ip>:5000"  # Replace <server-ip> with Server's IP
+server_url = "http://192.168.2.176:5000"  # Replace <server-ip> with Server's IP
 rounds = 20  # Number of training rounds
 
 # Load MNIST dataset
